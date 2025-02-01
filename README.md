@@ -1,50 +1,37 @@
-# React + TypeScript + Vite
+# Country AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+Country AI is an application designed to provide detailed information about countries using AI-powered features. It allows users to list countries, view detailed information, and access various data points about each country.
 
-Currently, two official plugins are available:
+## Setup Instructions
+1. Clone the repository:
+  ```bash
+  git clone https://github.com/yourusername/country-ai.git
+  ```
+2. Navigate to the project directory:
+  ```bash
+  cd country-ai
+  ```
+3. Install the required dependencies:
+  ```bash
+  npm install
+  ```
+4. Start the application:
+  ```bash
+  npm run dev
+  ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Available Features
+- **List Countries**: View a list of all available countries.
+- **Country Details**: Access detailed information about a specific country.
+- **Country Information**: Get various data points such as population, capital, and more.
 
-## Expanding the ESLint configuration
+## Technical Decisions and Architecture
+- **Frontend**: Built with React for a dynamic and responsive user interface.
+- **AI Integration**: Utilizes Nvidia NIM AI API with Llama-3 70B Instruct model to provide enhanced data insights and recommendations.
+- **API**: GraphQL is used for efficient and flexible data querying and manipulation.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Future Improvements
+- **Create, Delete, Update Features**: Implement features to allow users to create, delete, and update country information.
+- **Enhanced AI Features**: Implement more advanced AI models for better data analysis.
+- **Performance Optimization**: Improve the performance and scalability of the application.

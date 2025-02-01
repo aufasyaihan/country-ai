@@ -3,12 +3,12 @@ import Navbar from "./Navbar";
 
 const RootLayout: React.FC = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <main>
+      <main className="mx-auto p-4">
         <Outlet />
       </main>
-    </div>
+    </>
   );
 }
 
