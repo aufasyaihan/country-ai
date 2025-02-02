@@ -5,6 +5,7 @@ import { CountryType } from "../types/Country";
 import { GET_COUNTRIES } from "../api/client";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import { MdError } from "react-icons/md";
+import ReactCountryFlag from "react-country-flag";
 
 const CountryList: React.FC = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
@@ -25,15 +26,15 @@ const CountryList: React.FC = () => {
                     {Array.from({ length: 16 }).map((_, index) => (
                         <div
                             key={index}
-                            className="bg-gray-400 rounded-md animate-pulse"
+                            className="bg-gray-300 rounded-md animate-pulse"
                         ></div>
                     ))}
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="bg-gray-400 w-24 h-10 rounded-md animate-pulse"></div>
+                    <div className="bg-gray-300 w-24 h-10 rounded-md animate-pulse"></div>
                     <div className="flex gap-2 items-center">
-                        <div className="bg-gray-400 w-10 h-10 rounded-md animate-pulse"></div>
-                        <div className="bg-gray-400 w-10 h-10 rounded-md animate-pulse"></div>
+                        <div className="bg-gray-300 w-10 h-10 rounded-md animate-pulse"></div>
+                        <div className="bg-gray-300 w-10 h-10 rounded-md animate-pulse"></div>
                     </div>
                 </div>
             </>
@@ -68,19 +69,23 @@ const CountryList: React.FC = () => {
                     <Link
                         to={`${country.code}`}
                         className="bg-white p-4 shadow-sm w-full rounded-md cursor-pointer relative overflow-hidden group"
-                        key={country.name}
+                        key={country.code}
                     >
-                        <h2 className="text-xl z-10 group-hover:text-white relative transition-all duration-300 ease-in-out">
+                        <h2 className="flex items-center gap-2 text-xl z-10 group-hover:text-white relative transition-all duration-300 ease-in-out">
                             {country.name}{" "}
                             <span className="text-gray-400">
-                                {country.emoji}
+                                <ReactCountryFlag
+                                    className="mb-1"
+                                    countryCode={country.code}
+                                    svg
+                                />
                             </span>
                         </h2>
                         <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
                             <p>Capital: {country.capital}</p>
                             <p>Currency: {country.currency}</p>
                         </div>
-                        <span className="bg-slate-900 w-0 h-full group-hover:w-full absolute top-0 left-0 transition-all duration-300 ease-in-out -z-0"></span>
+                        <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
                     </Link>
                 ))}
             </div>

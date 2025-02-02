@@ -1,5 +1,5 @@
 export interface CountryType {
-  code: string | number;
+  code: string;
   name: string;
   emoji: string;
   capital: string;
