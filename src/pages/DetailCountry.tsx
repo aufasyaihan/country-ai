@@ -46,8 +46,7 @@ const DetailCountry: React.FC = () => {
                     {data?.country && (
                         <>
                             <div className="flex flex-col gap-2">
-                                <h1 className="text-2xl font-bold">
-                                    {data.country.name}{" "}
+                                <h1 className="flex gap-2 text-2xl font-bold">
                                     <span className="text-gray-400">
                                         <ReactCountryFlag
                                             className="mb-1"
@@ -55,6 +54,7 @@ const DetailCountry: React.FC = () => {
                                             svg
                                         />
                                     </span>
+                                    {data.country.name}
                                 </h1>
                                 <hr className="w-full" />
                             </div>

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { CountryType } from "../types/Country";
 import { GET_COUNTRIES } from "../api/client";
@@ -11,7 +11,24 @@ const CountryList: React.FC = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
     const [searchParams, setSearchParams] = useSearchParams();
     const currentPage = Number(searchParams.get("page")) || 1;
-    const itemsPerPage = 16;
+    const [itemsPerPage, setItemsPerPage] = useState(16);
+
+    useEffect(() => {
+        const updateItemsPerPage = () => {
+            if (window.innerWidth <= 640) {
+                setItemsPerPage(6);
+            } else {
+                setItemsPerPage(16);
+            }
+        };
+
+        updateItemsPerPage();
+        window.addEventListener("resize", updateItemsPerPage);
+
+        return () => {
+            window.removeEventListener("resize", updateItemsPerPage);
+        };
+    }, []);
 
     useEffect(() => {
         if (!searchParams.get("page")) {
@@ -22,11 +39,11 @@ const CountryList: React.FC = () => {
     if (loading)
         return (
             <>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[530px] w-full">
-                    {Array.from({ length: 16 }).map((_, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[530px] w-full">
+                    {Array.from({ length: itemsPerPage }).map((_, index) => (
                         <div
                             key={index}
-                            className="bg-gray-300 rounded-md animate-pulse"
+                            className="bg-gray-300 rounded-md h-26 animate-pulse"
                         ></div>
                     ))}
                 </div>
@@ -64,7 +81,7 @@ const CountryList: React.FC = () => {
 
     return (
         <section className="flex flex-col w-full">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[530px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[530px] w-full">
                 {selectedCountries.map((country: CountryType) => (
                     <Link
                         to={`${country.code}`}
@@ -72,7 +89,6 @@ const CountryList: React.FC = () => {
                         key={country.code}
                     >
                         <h2 className="flex items-center gap-2 text-xl z-10 group-hover:text-white relative transition-all duration-300 ease-in-out">
-                            {country.name}{" "}
                             <span className="text-gray-400">
                                 <ReactCountryFlag
                                     className="mb-1"
@@ -80,12 +96,13 @@ const CountryList: React.FC = () => {
                                     svg
                                 />
                             </span>
+                            {country.name}
                         </h2>
                         <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
                             <p>Capital: {country.capital}</p>
                             <p>Currency: {country.currency}</p>
                         </div>
-                        <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
+                        <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2700%] sm:group-hover:scale-[3550%] md:group-hover:scale-[2350%] lg:group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
                     </Link>
                 ))}
             </div>
