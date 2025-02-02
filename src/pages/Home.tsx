@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     return (
         <div className="flex flex-col gap-4 w-full">
             <div>
-                <h1 className="text-3xl">Welcome, {user?.name || 'Guest'} to Country AI</h1>
+                <h1 className="text-3xl">Welcome {user?.name || 'Guest'}, to Country AI!</h1>
             </div>
             <CountryList />
         </div>

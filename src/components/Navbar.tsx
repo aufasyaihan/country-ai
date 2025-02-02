@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
         navigate("/login");
     };
     return (
-        <nav className="flex justify-between items-center w-full bg-slate-900 px-8 py-2 shadow-md">
+        <nav className="flex justify-between items-center w-full bg-slate-900 px-8 py-2 shadow-md sticky top-0 z-10">
             <div>
                 <Link to="/" className="flex gap-2 items-center text-white">
                     <img src={logo} alt="Country AI" className="w-12 h-12" />
