@@ -36,19 +36,20 @@ const CountryList: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[530px] w-full">
                 {selectedCountries.map((country: CountryType) => (
                     <div
-                        className="bg-white p-4 shadow-sm w-full rounded-md cursor-pointer"
+                        className="bg-white p-4 shadow-sm w-full rounded-md cursor-pointer relative overflow-hidden group"
                         key={country.name}
                     >
-                        <h2 className="text-xl">
+                        <h2 className="text-xl z-10 group-hover:text-white relative transition-all duration-300 ease-in-out">
                             {country.name}{" "}
                             <span className="text-gray-400">
                                 {country.emoji}
                             </span>
                         </h2>
-                        <div className="text-gray-600 font-light">
+                        <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
                             <p>Capital: {country.capital}</p>
                             <p>Currency: {country.currency}</p>
                         </div>
+                        <span className="bg-slate-900 w-0 h-full group-hover:w-full absolute top-0 left-0 transition-all duration-300 ease-in-out -z-0"></span>
                     </div>
                 ))}
             </div>
