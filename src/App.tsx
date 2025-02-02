@@ -6,6 +6,7 @@ import client from "./api/client";
 import Login from "./pages/Login";
 import { AuthProvider } from "./Providers/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import DetailCountry from "./pages/DetailCountry";
 
 function App() {
     return (
@@ -14,11 +15,22 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<RootLayout />}>
-                            <Route index element={
-                              <ProtectedRoute>
-                              <Home />
-                          </ProtectedRoute>
-                              } />
+                            <Route
+                                index
+                                element={
+                                    <ProtectedRoute>
+                                        <Home />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path=":countryId"
+                                element={
+                                    <ProtectedRoute>
+                                        <DetailCountry />
+                                    </ProtectedRoute>
+                                }
+                            />
                         </Route>
                         <Route path="login" element={<Login />} />
                     </Routes>

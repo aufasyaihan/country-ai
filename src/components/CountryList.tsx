@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { CountryType } from "../types/Country";
 import { GET_COUNTRIES } from "../api/client";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { MdError } from "react-icons/md";
 
 const CountryList: React.FC = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
@@ -17,8 +18,37 @@ const CountryList: React.FC = () => {
         }
     }, [searchParams, setSearchParams]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    if (loading)
+        return (
+            <>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[530px] w-full">
+                    {Array.from({ length: 16 }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="bg-gray-400 rounded-md animate-pulse"
+                        ></div>
+                    ))}
+                </div>
+                <div className="flex items-center justify-between">
+                    <div className="bg-gray-400 w-24 h-10 rounded-md animate-pulse"></div>
+                    <div className="flex gap-2 items-center">
+                        <div className="bg-gray-400 w-10 h-10 rounded-md animate-pulse"></div>
+                        <div className="bg-gray-400 w-10 h-10 rounded-md animate-pulse"></div>
+                    </div>
+                </div>
+            </>
+        );
+    if (error)
+        return (
+            <div className="bg-red-200 border-l-4 border-red-400 w-full rounded-sm">
+                <p className="flex gap-2 items-center text-red-800 p-2">
+                    <span>
+                        <MdError />
+                    </span>
+                    {error.message}
+                </p>
+            </div>
+        );
 
     const totalPages = Math.ceil(data.countries.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -32,10 +62,11 @@ const CountryList: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col w-full">
+        <section className="flex flex-col w-full">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[530px] w-full">
                 {selectedCountries.map((country: CountryType) => (
-                    <div
+                    <Link
+                        to={`${country.code}`}
                         className="bg-white p-4 shadow-sm w-full rounded-md cursor-pointer relative overflow-hidden group"
                         key={country.name}
                     >
@@ -50,7 +81,7 @@ const CountryList: React.FC = () => {
                             <p>Currency: {country.currency}</p>
                         </div>
                         <span className="bg-slate-900 w-0 h-full group-hover:w-full absolute top-0 left-0 transition-all duration-300 ease-in-out -z-0"></span>
-                    </div>
+                    </Link>
                 ))}
             </div>
             <div className="flex justify-between items-center mt-4 gap-2">
@@ -80,7 +111,7 @@ const CountryList: React.FC = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

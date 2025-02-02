@@ -8,10 +8,29 @@ const client = new ApolloClient({
 export const GET_COUNTRIES = gql`
   query GetCountries {
     countries {
+      code
       name
       emoji
       capital
       currency
+    }
+  }
+`;
+
+export const GET_COUNTRY_BY_CODE = gql`
+  query GetCountryByCode($code: ID!) {
+    country(code: $code) {
+      code
+      name
+      emoji
+      capital
+      currency
+      continent {
+        name
+      }
+      languages {
+        name
+      }
     }
   }
 `;
