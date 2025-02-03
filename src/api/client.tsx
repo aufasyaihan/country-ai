@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-    uri: "https://countries.trevorblades.com/",
+    uri: import.meta.env.VITE_GRAPHQL_ENDPOINT,
     cache: new InMemoryCache(),
 });
 
