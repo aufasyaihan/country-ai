@@ -1,6 +1,7 @@
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link } from "react-router";
 import Country from "../components/Country";
+import Chat from "../components/Chat";
 
 const DetailCountry: React.FC = () => {
     
@@ -13,10 +14,10 @@ const DetailCountry: React.FC = () => {
                     <IoChevronBackOutline />
                 </Link>
                 <h1>Detail Country</h1>
-            </div>
+            </div>  
             <div className=" flex gap-2 w-full">
                 <Country />
-                <div className="w-1/2">chat</div>
+                <Chat />
             </div>
         </section>
     );
