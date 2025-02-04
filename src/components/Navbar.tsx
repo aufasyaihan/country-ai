@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
             <div>
                 <Link to="/" className="flex gap-2 items-center text-white">
                     <img src={logo} alt="Country AI" className="w-12 h-12" />
-                    <h1>Country AI</h1>
+                    <h1 className="hidden sm:block">Country AI</h1>
                 </Link>
             </div>
             {!user && (

@@ -4,14 +4,16 @@ import Home from "./pages/Home";
 import { ApolloProvider } from "@apollo/client";
 import client from "./api/client";
 import Login from "./pages/Login";
-import { AuthProvider } from "./Providers/AuthProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import DetailCountry from "./pages/DetailCountry";
+import { ChatProvider } from "./providers/ChatProvider";
 
 function App() {
     return (
         <ApolloProvider client={client}>
             <AuthProvider>
+                <ChatProvider>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<RootLayout />}>
@@ -35,6 +37,7 @@ function App() {
                         <Route path="login" element={<Login />} />
                     </Routes>
                 </BrowserRouter>
+                </ChatProvider>
             </AuthProvider>
         </ApolloProvider>
     );

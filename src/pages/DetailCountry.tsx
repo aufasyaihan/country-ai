@@ -15,7 +15,7 @@ const DetailCountry: React.FC = () => {
                 </Link>
                 <h1>Detail Country</h1>
             </div>  
-            <div className=" flex gap-2 w-full">
+            <div className="flex flex-wrap md:flex-nowrap gap-2 w-full">
                 <Country />
                 <Chat />
             </div>
