@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { CountryType } from "../types/Country";
 import { GET_COUNTRIES } from "../api/client";
-import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import { MdError } from "react-icons/md";
 import ReactCountryFlag from "react-country-flag";
+import Pagination from "./Pagination";
 
 const CountryList: React.FC = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
@@ -15,7 +15,7 @@ const CountryList: React.FC = () => {
 
     useEffect(() => {
         const updateItemsPerPage = () => {
-            if (window.innerWidth <= 640) {
+            if (window.innerWidth <= 768) {
                 setItemsPerPage(6);
             } else {
                 setItemsPerPage(16);
@@ -35,6 +35,13 @@ const CountryList: React.FC = () => {
             setSearchParams({ page: "1" });
         }
     }, [searchParams, setSearchParams]);
+
+    const totalPages = Math.ceil(data.countries.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const selectedCountries = data.countries.slice(
+        startIndex,
+        startIndex + itemsPerPage
+    );
 
     if (loading)
         return (
@@ -68,17 +75,6 @@ const CountryList: React.FC = () => {
             </div>
         );
 
-    const totalPages = Math.ceil(data.countries.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const selectedCountries = data.countries.slice(
-        startIndex,
-        startIndex + itemsPerPage
-    );
-
-    const handlePageChange = (newPage: number) => {
-        setSearchParams({ page: newPage.toString() });
-    };
-
     return (
         <section className="flex flex-col w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[530px] w-full">
@@ -106,33 +102,11 @@ const CountryList: React.FC = () => {
                     </Link>
                 ))}
             </div>
-            <div className="flex justify-between items-center mt-4 gap-2">
-                <p className="px-4 py-2">
-                    Page {currentPage} of {totalPages}
-                </p>
-                <div className="flex gap-2">
-                    <button
-                        className="p-2 bg-slate-900 rounded-md disabled:opacity-50 cursor-pointer"
-                        onClick={() =>
-                            handlePageChange(Math.max(currentPage - 1, 1))
-                        }
-                        disabled={currentPage === 1}
-                    >
-                        <IoChevronBackOutline className="text-white" />
-                    </button>
-                    <button
-                        className="p-2 bg-slate-900 rounded-md disabled:opacity-50 cursor-pointer"
-                        onClick={() =>
-                            handlePageChange(
-                                Math.min(currentPage + 1, totalPages)
-                            )
-                        }
-                        disabled={currentPage === totalPages}
-                    >
-                        <IoChevronForwardOutline className="text-white" />
-                    </button>
-                </div>
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                setSearchParams={setSearchParams}
+                totalPages={totalPages}
+            />
         </section>
     );
 };
