@@ -6,12 +6,15 @@ import { GET_COUNTRIES } from "../api/client";
 import { MdError } from "react-icons/md";
 import ReactCountryFlag from "react-country-flag";
 import Pagination from "./Pagination";
+import SearchBar from "./SearchBar";
 
 const CountryList: React.FC = () => {
     const { loading, error, data } = useQuery(GET_COUNTRIES);
     const [searchParams, setSearchParams] = useSearchParams();
     const currentPage = Number(searchParams.get("page")) || 1;
     const [itemsPerPage, setItemsPerPage] = useState(16);
+    const [search, setSearch] = useState<string>(searchParams.get("keyword") || "");
+    const keyword = searchParams.get("keyword");
 
     useEffect(() => {
         const updateItemsPerPage = () => {
@@ -35,13 +38,6 @@ const CountryList: React.FC = () => {
             setSearchParams({ page: "1" });
         }
     }, [searchParams, setSearchParams]);
-
-    const totalPages = Math.ceil(data.countries.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const selectedCountries = data.countries.slice(
-        startIndex,
-        startIndex + itemsPerPage
-    );
 
     if (loading)
         return (
@@ -75,9 +71,26 @@ const CountryList: React.FC = () => {
             </div>
         );
 
+    const totalPages = Math.ceil(data.countries.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const filteredData = data.countries.filter((country: CountryType) => {
+        if (!keyword) return true;
+        return (
+            country.name?.toLowerCase().includes(keyword.toLowerCase()) 
+        );
+    });
+    const selectedCountries = filteredData.slice(
+        startIndex,
+        startIndex + itemsPerPage
+    );
+    
+
     return (
-        <section className="flex flex-col w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[530px] w-full">
+        <section className="flex flex-col gap-2 w-full">
+            <div className="flex justify-end">
+                <SearchBar search={search} searchParams={searchParams} setSearch={setSearch} setSearchParams={setSearchParams}/>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-4 gap-4 lg:h-[530px] w-full">
                 {selectedCountries.map((country: CountryType) => (
                     <Link
                         to={`${country.code}`}
@@ -92,11 +105,18 @@ const CountryList: React.FC = () => {
                                     svg
                                 />
                             </span>
-                            {country.name}
+                            {country.name?.split("").length > 25
+                                    ? country.name.slice(0, 25) + "..."
+                                    : country.name}
                         </h2>
                         <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
                             <p>Capital: {country.capital}</p>
-                            <p>Currency: {country.currency}</p>
+                            <p>
+                                Currency:{" "}
+                                {country.currency?.length > 15
+                                    ? country.currency.slice(0, 15) + "..."
+                                    : country.currency}
+                            </p>
                         </div>
                         <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2700%] sm:group-hover:scale-[3550%] md:group-hover:scale-[2350%] lg:group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
                     </Link>
