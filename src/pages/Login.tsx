@@ -26,7 +26,7 @@ const Login: React.FC = () => {
 
     return (
         <main className="flex flex-col h-screen items-center justify-center bg-slate-900">
-            <div className="flex flex-col items-center gap-4 md:w-1/4 bg-slate-700 text-white p-4 rounded-md border border-slate-600">
+            <div className="flex flex-col items-center gap-4 lg:w-1/4 bg-slate-700 text-white p-4 rounded-md border border-slate-600">
                 <h1 className="text-2xl ">Login with</h1>
                 <GoogleLogin
                     onSuccess={handleLoginSuccess}
