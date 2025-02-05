@@ -1,7 +1,7 @@
 # Country AI
 
 ## Project Overview
-Country AI is an application designed to provide detailed information about countries using AI-powered features. It allows users to list countries, view detailed information, and access various data points about each country.
+Country AI is an application designed to provide detailed information about countries. It allows users to list countries, view detailed information, and access various data points about each country. It also has an AI Chat Bot to help users inquire about countries.
 
 ## Setup Instructions
 1. Clone the repository:
@@ -25,6 +25,7 @@ Country AI is an application designed to provide detailed information about coun
 - **List Countries**: View a list of all available countries.
 - **Country Details**: Access detailed information about a specific country.
 - **Country Information**: Get various data points such as population, capital, and more.
+- **AI Chat**: Ask anything to AI about selected country
 
 ## Technical Decisions and Architecture
 - **Frontend**: Built with React for a dynamic and responsive user interface.
