@@ -23,9 +23,8 @@ const CountryList: React.FC = () => {
             if (window.innerWidth <= 768) {
                 setItemsPerPage(6);
             } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-                setItemsPerPage(10)
-            }
-            else {
+                setItemsPerPage(10);
+            } else {
                 setItemsPerPage(16);
             }
         };
@@ -79,12 +78,12 @@ const CountryList: React.FC = () => {
             </div>
         );
 
-    const totalPages = Math.ceil(data.countries.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
     const filteredData = data.countries.filter((country: CountryType) => {
         if (!keyword) return true;
         return country.name?.toLowerCase().includes(keyword.toLowerCase());
     });
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
     const selectedCountries = filteredData.slice(
         startIndex,
         startIndex + itemsPerPage
