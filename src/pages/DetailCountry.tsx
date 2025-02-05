@@ -4,17 +4,14 @@ import Country from "../components/Country";
 import Chat from "../components/Chat";
 
 const DetailCountry: React.FC = () => {
-    
-
     return (
         <section className="flex flex-col gap-4 w-full">
-            <div className="text-3xl flex items-center gap-2">
-                {" "}
+            <h1 className="text-2xl sm:text-3xl flex items-center gap-2">
                 <Link to="/">
                     <IoChevronBackOutline />
                 </Link>
-                <h1>Detail Country</h1>
-            </div>  
+                Detail Country
+            </h1>
             <div className="flex flex-wrap md:flex-nowrap gap-2 w-full">
                 <Country />
                 <Chat />

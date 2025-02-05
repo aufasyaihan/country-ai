@@ -12,7 +12,7 @@ const Pagination: React.FC<PaginationProps> = ({ setSearchParams, currentPage, t
     };
     return (
         <div className="flex justify-between items-center mt-4 gap-2">
-            <p className="px-4 py-2">
+            <p className="px-4 py-2 text-sm ">
                 Page {currentPage} of {totalPages}
             </p>
             <div className="flex gap-2">

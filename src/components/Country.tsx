@@ -37,7 +37,7 @@ const Country: React.FC = () => {
             {data?.country && (
                 <>
                     <div className="flex flex-col gap-2">
-                        <h1 className="flex gap-2 text-2xl font-bold">
+                        <h1 className="flex gap-2 text-lg sm:text-2xl font-bold">
                             <span className="text-gray-400">
                                 <ReactCountryFlag
                                     className="mb-1"
@@ -51,28 +51,28 @@ const Country: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <div>
-                            <h2 className="font-semibold text-xl">Capital</h2>
+                            <h2 className="font-semibold sm:text-xl">Capital</h2>
                             <p className="font-light">
                                 {" "}
                                 {data.country.capital}
                             </p>
                         </div>
                         <div>
-                            <h2 className="font-semibold text-xl">Currency</h2>
+                            <h2 className="font-semibold sm:text-xl">Currency</h2>
                             <p className="font-light">
                                 {" "}
                                 {data.country.currency}
                             </p>
                         </div>
                         <div>
-                            <h2 className="font-semibold text-xl">Continent</h2>
+                            <h2 className="font-semibold sm:text-xl">Continent</h2>
                             <p className="font-light">
                                 {" "}
                                 {data.country.continent.name}
                             </p>
                         </div>
                         <div>
-                            <h2 className="font-semibold text-xl">
+                            <h2 className="font-semibold sm:text-xl">
                                 Language
                                 {data.country.languages.length > 1 && "s"}
                             </h2>

@@ -13,14 +13,19 @@ const CountryList: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentPage = Number(searchParams.get("page")) || 1;
     const [itemsPerPage, setItemsPerPage] = useState(16);
-    const [search, setSearch] = useState<string>(searchParams.get("keyword") || "");
+    const [search, setSearch] = useState<string>(
+        searchParams.get("keyword") || ""
+    );
     const keyword = searchParams.get("keyword");
 
     useEffect(() => {
         const updateItemsPerPage = () => {
             if (window.innerWidth <= 768) {
                 setItemsPerPage(6);
-            } else {
+            } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
+                setItemsPerPage(10)
+            }
+            else {
                 setItemsPerPage(16);
             }
         };
@@ -42,6 +47,9 @@ const CountryList: React.FC = () => {
     if (loading)
         return (
             <>
+                <div className="flex justify-end">
+                    <div className="bg-gray-300 rounded-md h-10 w-64 animate-pulse"></div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[530px] w-full">
                     {Array.from({ length: itemsPerPage }).map((_, index) => (
                         <div
@@ -75,22 +83,24 @@ const CountryList: React.FC = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const filteredData = data.countries.filter((country: CountryType) => {
         if (!keyword) return true;
-        return (
-            country.name?.toLowerCase().includes(keyword.toLowerCase()) 
-        );
+        return country.name?.toLowerCase().includes(keyword.toLowerCase());
     });
     const selectedCountries = filteredData.slice(
         startIndex,
         startIndex + itemsPerPage
     );
-    
 
     return (
         <section className="flex flex-col gap-2 w-full">
             <div className="flex justify-end">
-                <SearchBar search={search} searchParams={searchParams} setSearch={setSearch} setSearchParams={setSearchParams}/>
+                <SearchBar
+                    search={search}
+                    searchParams={searchParams}
+                    setSearch={setSearch}
+                    setSearchParams={setSearchParams}
+                />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-4 gap-4 lg:h-[530px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-6 md:grid-rows-5 lg:grid-cols-4 lg:grid-rows-4 gap-4 h-[700px] lg:h-[530px] w-full">
                 {selectedCountries.map((country: CountryType) => (
                     <Link
                         to={`${country.code}`}
@@ -105,9 +115,9 @@ const CountryList: React.FC = () => {
                                     svg
                                 />
                             </span>
-                            {country.name?.split("").length > 25
-                                    ? country.name.slice(0, 25) + "..."
-                                    : country.name}
+                            {country.name?.split("").length > 16
+                                ? country.name.slice(0, 16) + "..."
+                                : country.name}
                         </h2>
                         <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
                             <p>Capital: {country.capital}</p>

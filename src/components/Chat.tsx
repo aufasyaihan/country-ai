@@ -73,14 +73,14 @@ const Chat = () => {
         <Card>
             <div className="flex flex-col gap-2 h-[500px] w-full overflow-y-auto">
                 <div className="flex flex-col gap-2 w-full">
-                    <h1 className="text-2xl font-bold">Chat with AI</h1>
+                    <h1 className="text-lg sm:text-2xl font-bold">Chat with AI</h1>
                     <hr className="w-full" />
                 </div>
                 <div className="flex flex-col gap-2 p-2 flex-grow overflow-y-auto">
                     {messages.length === 0 && (
-                        <div className="flex flex-col gap-2 w-3/4 bg-slate-900 p-4 rounded text-white shadow-md">
-                            <h3 className="text-lg">Ask Something!</h3>
-                            <div className="flex flex-col gap-2 w-3/4">
+                        <div className="flex flex-col gap-2 w-full sm:w-3/4 md:w-full lg:w-3/4 bg-slate-900 p-4 rounded text-white shadow-md">
+                            <h3 className="sm:text-lg">Ask Something!</h3>
+                            <div className="flex flex-col gap-2 w-full lg:w-3/4">
                                 <Option
                                     message="What do you know about this country?"
                                     sendMessage={sendMessage}
@@ -105,7 +105,7 @@ const Chat = () => {
                                     : "bg-gray-200 text-black self-start"
                             }`}
                         >
-                            <div
+                            <div className="text-xs"
                                 dangerouslySetInnerHTML={{
                                     __html: msg.content,
                                 }}
@@ -135,7 +135,7 @@ const Chat = () => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Ask something about this country..."
-                        className="flex-grow p-2 border rounded-lg"
+                        className="flex-grow p-2 border rounded-lg w-1/2 sm:w-full"
                         onKeyDown={(e) =>
                             e.key === "Enter" && sendMessage(input)
                         }
@@ -144,7 +144,7 @@ const Chat = () => {
                     <button
                         onClick={() => sendMessage(input)}
                         disabled={isTyping}
-                        className="flex items-center justify-center bg-slate-900 w-10 h-full text-white p-2 rounded-lg disabled:bg-slate-400 disabled:cursor-not-allowed"
+                        className="flex items-center justify-center bg-slate-900 w-10 h-full text-white p-2 rounded-lg disabled:bg-slate-400 disabled:cursor-not-allowed cursor-pointer hover:bg-slate-800 transition-all duration-200"
                     >
                         <IoMdSend />
                     </button>
