@@ -4,10 +4,8 @@ import { GET_COUNTRY_BY_CODE } from "../api/client";
 import Card from "./Card";
 import { MdError } from "react-icons/md";
 import ReactCountryFlag from "react-country-flag";
-
-interface Language {
-    name: string;
-}
+import { getRegion, isPlural } from "../lib/utils";
+import Detail from "./Detail";
 
 const Country: React.FC = () => {
     const { countryId } = useParams<{ countryId: string }>();
@@ -50,39 +48,70 @@ const Country: React.FC = () => {
                         <hr className="w-full" />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <div>
-                            <h2 className="font-semibold sm:text-xl">Capital</h2>
-                            <p className="font-light">
-                                {" "}
-                                {data.country.capital}
-                            </p>
-                        </div>
-                        <div>
-                            <h2 className="font-semibold sm:text-xl">Currency</h2>
-                            <p className="font-light">
-                                {" "}
-                                {data.country.currency}
-                            </p>
-                        </div>
-                        <div>
-                            <h2 className="font-semibold sm:text-xl">Continent</h2>
-                            <p className="font-light">
-                                {" "}
-                                {data.country.continent.name}
-                            </p>
-                        </div>
-                        <div>
-                            <h2 className="font-semibold sm:text-xl">
-                                Language
-                                {data.country.languages.length > 1 && "s"}
-                            </h2>
-                            <p className="font-light">
-                                {" "}
-                                {data.country.languages
-                                    .map((lang: Language) => lang.name)
-                                    .join(", ")}
-                            </p>
-                        </div>
+                        {data.country.capital && (
+                            <Detail
+                                title="Capital"
+                                value={data.country.capital}
+                            />
+                        )}
+                        {data.country.currency && (
+                            <Detail
+                                title="Currency"
+                                value={data.country.currency}
+                            />
+                        )}
+                        {data.country.continent && (
+                            <Detail
+                                title="Continent"
+                                value={data.country.continent.name}
+                            />
+                        )}
+                        {data.country.languages.length > 0 && (
+                            <Detail
+                                data={data.country.languages}
+                                title={`Language${isPlural(
+                                    data.country.languages
+                                )}`}
+                            />
+                        )}
+                        {data.country.native && (
+                            <Detail
+                                title="Native"
+                                value={data.country.native}
+                            />
+                        )}
+                        {data.country.awsRegion && (
+                            <Detail
+                                title="AWS Region"
+                                value={getRegion(data.country.awsRegion)}
+                            />
+                        )}
+                        {data.country.phone && (
+                            <Detail
+                                title="Phone Code"
+                                value={`+${data.country.phone}`}
+                            />
+                        )}
+                        {data.country.states.length > 0 && (
+                            <div>
+                                <Detail
+                                    data={data.country.states}
+                                    title={`State${isPlural(
+                                        data.country.languages
+                                    )}`}
+                                />
+                            </div>
+                        )}
+                        {data.country.subdivisions.length > 0 && (
+                            <div>
+                                <Detail
+                                    data={data.country.subdivisions}
+                                    title={`Subdivision${isPlural(
+                                        data.country.languages
+                                    )}`}
+                                />
+                            </div>
+                        )}
                     </div>
                 </>
             )}

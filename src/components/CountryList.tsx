@@ -119,13 +119,18 @@ const CountryList: React.FC = () => {
                                 : country.name}
                         </h2>
                         <div className="text-gray-600 font-light z-10 relative group-hover:text-gray-200 transition-all duration-300 ease-in-out">
-                            <p>Capital: {country.capital}</p>
-                            <p>
+                            {country.capital && <p>Capital: {country.capital}</p>}
+                            {country.currency && <p>
                                 Currency:{" "}
-                                {country.currency?.length > 15
-                                    ? country.currency.slice(0, 15) + "..."
-                                    : country.currency}
-                            </p>
+                                {country.currency
+                                    ?.split(",")
+                                    .map((curr) => curr.trim())
+                                    .join(", ")
+                                    .slice(0, 15) +
+                                    (country.currency?.length > 15
+                                        ? "..."
+                                        : "")}
+                            </p>}
                         </div>
                         <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2700%] sm:group-hover:scale-[3550%] md:group-hover:scale-[2350%] lg:group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
                     </Link>

@@ -105,7 +105,7 @@ const Chat = () => {
                                     : "bg-gray-200 text-black self-start"
                             }`}
                         >
-                            <div className="text-xs"
+                            <div className="text-xs md:text-base"
                                 dangerouslySetInnerHTML={{
                                     __html: msg.content,
                                 }}
