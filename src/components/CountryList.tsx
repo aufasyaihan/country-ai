@@ -131,6 +131,9 @@ const CountryList: React.FC = () => {
                                         ? "..."
                                         : "")}
                             </p>}
+                            {(!country.continent && !country.currency) && (
+                                <p className="text-red-500">There's no information for continent and currency</p>
+                            )}
                         </div>
                         <span className="bg-slate-900 w-10 h-10 group-hover:scale-[2700%] sm:group-hover:scale-[3550%] md:group-hover:scale-[2350%] lg:group-hover:scale-[2100%] absolute -bottom-10 left-0 transition-all duration-300 ease-in -z-0 rounded-full"></span>
                     </Link>

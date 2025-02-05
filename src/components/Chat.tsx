@@ -90,7 +90,7 @@ const Chat = () => {
                                     sendMessage={sendMessage}
                                 />
                                 <Option
-                                    message="Translate country information"
+                                    message={`Translate country information to ${data?.country.languages[0]?.name ?? data?.country.native}`}
                                     sendMessage={sendMessage}
                                 />
                             </div>

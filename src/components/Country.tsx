@@ -97,7 +97,7 @@ const Country: React.FC = () => {
                                 <Detail
                                     data={data.country.states}
                                     title={`State${isPlural(
-                                        data.country.languages
+                                        data.country.states
                                     )}`}
                                 />
                             </div>
@@ -107,7 +107,7 @@ const Country: React.FC = () => {
                                 <Detail
                                     data={data.country.subdivisions}
                                     title={`Subdivision${isPlural(
-                                        data.country.languages
+                                        data.country.subdivisions
                                     )}`}
                                 />
                             </div>

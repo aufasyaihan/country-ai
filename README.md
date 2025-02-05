@@ -24,7 +24,6 @@ Country AI is an application designed to provide detailed information about coun
 ## Available Features
 - **List Countries**: View a list of all available countries.
 - **Country Details**: Access detailed information about a specific country.
-- **Country Information**: Get various data points such as population, capital, and more.
 - **AI Chat**: Ask anything to AI about selected country
 
 ## Technical Decisions and Architecture
